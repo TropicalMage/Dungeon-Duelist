@@ -2,12 +2,26 @@
 Crafty.scene('Game', function () {
     Crafty.e('Card_Interface').at(0, 26);
     Crafty.e('Card_Desc_Interface').at(0, 0);
-    Crafty.e('Tick').at(18, 5);
+    Tick = Crafty.e('Tick').at(18, 5);
+    
     Crafty.e('Attack_Card').at(1, 27);
-    Crafty.e('Attack_Card').at(11, 27);
+    Crafty.e('Magic_Card').at(11, 27);
     Crafty.e('Attack_Card').at(21, 27);
-    Crafty.e('Attack_Card').at(31, 27);
+    Crafty.e('Magic_Card').at(31, 27);
     Crafty.e('Attack_Card').at(41, 27);
+    
+    var heart = Crafty.e('2D, DOM, spr_heart')
+    heart.x = 16 * 14; // Tile Size * 14
+    heart.y = 16; // Top Edge Buffer
+    
+    var desc_text = Crafty.e('2D, DOM, Text')
+        .text(Tick.health)
+        .attr({
+            x: 16 * 15, // Tile Size * 15
+            y: 12 // Top Edge Buffer
+        })
+        .textFont({ family: 'Arial', size: '16px', weight: 'bold' })
+        .textColor('#FFFFFF');
 });
 
 ////////////////////////////////////////////////////////////////// Loading Scene
@@ -22,47 +36,43 @@ Crafty.scene('Loading', function () {
             w: Game.width()
         })
         .textFont({ type: 'italic', family: 'Arial', size: '24px', weight: 'bold' })
-        .css($text_css);
 
-    // Load our sprite map image
+    // Load all of our assets
     Crafty.load([
         'assets/images/card_interface.png', 
         'assets/images/card_desc_interface.png', 
         'assets/images/Tick_16x24.png',
         'assets/images/Tick_64x128.png',
-        'assets/images/attack_card_140x280.png', 
+        'assets/images/cards_128x160.png',
+        'assets/images/heart_15x15.png',
         
         'assets/sounds/card_swipe.mp3', 
         'assets/sounds/card_swipe.ogg', 
         'assets/sounds/card_swipe.aac'
     ], function () {
-        // Once the images are loaded...
-
-/*        Crafty.sprite(16, 'assets/16x16_forest_2.gif', {
-            spr_tree: [0, 0],
-            spr_bush: [1, 0],
-            spr_village: [0, 1],
-            spr_rock: [1, 1]
-        });*/
-        
         // Define our Sprites
         load_text.text('Loading sprites...');
         var directory = "assets/images/";
         
-        Crafty.sprite(directory + 'card_interface.png', {
-            spr_card_interface: [0,0,800,192]
+        Crafty.sprite(800, 192, directory + 'card_interface.png', {
+            spr_card_interface: [0,0]
         });
         
-        Crafty.sprite(directory + 'card_desc_interface.png', {
-            spr_card_desc_interface: [0,0,208,416]
+        Crafty.sprite(208, 416, directory + 'card_desc_interface.png', {
+            spr_card_desc_interface: [0,0]
         });
         
         Crafty.sprite(64, 128, directory + 'Tick_64x128.png', {
             spr_tick: [0,0]
         });
         
-        Crafty.sprite(directory + 'attack_card_128x160.png', {
-            Attack_Card_Sprite: [0,0,128,160]
+        Crafty.sprite(128, 160, directory + 'cards_128x160.png', {
+            spr_attack_card: [0,0], 
+            spr_fireball_card: [1,0]
+        });
+        
+        Crafty.sprite(15, directory + 'heart_15x15.png', {
+            spr_heart: [0,0]
         });
 
         // Define our Sounds

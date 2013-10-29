@@ -32,14 +32,6 @@ Game = {
     }
 };
 
-$text_css = {
-    'font-size': '24px',
-    'font-family': 'Arial',
-    'color': 'white',
-    'text-align': 'center'
-};
-
 /* List of current tasks
-1) Tick wont animate
-2) Card wont click
+1) Have health display be updated per click
 */
