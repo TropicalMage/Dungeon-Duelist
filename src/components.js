@@ -21,6 +21,20 @@ Crafty.c('Grid', {
             });
             return this;
         }
+    },
+    
+    // Locate this entity at the given position on the grid
+    set_z: function (new_z) {
+        if (new_z === undefined) {
+            return {
+                z: 0
+            };
+        } else {
+            this.attr({
+                z: new_z
+            });
+            return this;
+        }
     }
 });
 
@@ -48,8 +62,8 @@ Crafty.c('Card_Desc_Interface', {
 // The protagonist
 Crafty.c('Tick', {
     init: function () {
-        this.requires('Actor, Fourway, Collision, spr_tick, SpriteAnimation')
-        .fourway(3)
+        this.requires('Actor, Twoway, Collision, spr_tick, SpriteAnimation, Gravity')
+        .twoway(3, 0)
         .stopOnBorder()
         .animate('PlayerStanding', 1, 1, 1)
         .animate('PlayerMovingRight', 0, 1, 3);
@@ -112,6 +126,9 @@ Crafty.c('Attack_Card', {
         this.bind('Click', function() {
             Crafty.audio.play('card_swipe');
             Tick.health -= 1;
+            Crafty("Tick_HP").each(function () {
+                this.text(Tick.health)
+            });
         });
         
         var desc_text = Crafty.e('2D, DOM, Text')
@@ -141,6 +158,9 @@ Crafty.c('Magic_Card', {
         this.bind('Click', function() {
             Crafty.audio.play('card_swipe');
             Tick.health -= 2;
+            Crafty("Tick_HP").each(function () {
+                this.text(Tick.health)
+            });
         });
         
         var desc_text = Crafty.e('2D, DOM, Text')

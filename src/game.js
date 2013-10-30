@@ -33,5 +33,4 @@ Game = {
 };
 
 /* List of current tasks
-1) Have health display be updated per click
 */

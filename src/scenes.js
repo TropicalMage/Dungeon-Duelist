@@ -1,20 +1,24 @@
 ///////////////////////////////////////////////////////////////////// Game Scene
 Crafty.scene('Game', function () {
-    Crafty.e('Card_Interface').at(0, 26);
-    Crafty.e('Card_Desc_Interface').at(0, 0);
-    Tick = Crafty.e('Tick').at(18, 5);
+    World = Crafty.e('2D, Canvas, TiledMapBuilder, Grid').setMapDataSource(SOURCE)
+    .set_z(1)
+    .createWorld(function(map) {});
     
-    Crafty.e('Attack_Card').at(1, 27);
-    Crafty.e('Magic_Card').at(11, 27);
-    Crafty.e('Attack_Card').at(21, 27);
-    Crafty.e('Magic_Card').at(31, 27);
-    Crafty.e('Attack_Card').at(41, 27);
+    Crafty.e('Card_Interface').at(0, 26).set_z(1);
+    Crafty.e('Card_Desc_Interface').at(0, 0).set_z(1);
+    Tick = Crafty.e('Tick').at(14, 12).set_z(2);
     
-    var heart = Crafty.e('2D, DOM, spr_heart')
+    Crafty.e('Attack_Card').at(1, 27).set_z(2);
+    Crafty.e('Magic_Card').at(11, 27).set_z(2);
+    Crafty.e('Attack_Card').at(21, 27).set_z(2);
+    Crafty.e('Magic_Card').at(31, 27).set_z(2);
+    Crafty.e('Attack_Card').at(41, 27).set_z(2);
+    
+    var heart = Crafty.e('2D, Canvas, spr_heart')
     heart.x = 16 * 14; // Tile Size * 14
     heart.y = 16; // Top Edge Buffer
     
-    var desc_text = Crafty.e('2D, DOM, Text')
+    var tick_hp_text = Crafty.e('Tick_HP, 2D, DOM, Text')
         .text(Tick.health)
         .attr({
             x: 16 * 15, // Tile Size * 15
@@ -39,12 +43,12 @@ Crafty.scene('Loading', function () {
 
     // Load all of our assets
     Crafty.load([
+        'assets/images/BG_16x16.png',
         'assets/images/card_interface.png', 
         'assets/images/card_desc_interface.png', 
-        'assets/images/Tick_16x24.png',
         'assets/images/Tick_64x128.png',
         'assets/images/cards_128x160.png',
-        'assets/images/heart_15x15.png',
+        'assets/images/heart_16x16.png',
         
         'assets/sounds/card_swipe.mp3', 
         'assets/sounds/card_swipe.ogg', 
@@ -71,7 +75,7 @@ Crafty.scene('Loading', function () {
             spr_fireball_card: [1,0]
         });
         
-        Crafty.sprite(15, directory + 'heart_15x15.png', {
+        Crafty.sprite(15, directory + 'heart_16x16.png', {
             spr_heart: [0,0]
         });
 
